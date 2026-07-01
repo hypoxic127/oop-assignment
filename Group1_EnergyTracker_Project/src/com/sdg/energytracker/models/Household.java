@@ -46,6 +46,17 @@ public class Household {
     /** The list of energy usage records generated for this household. */
     private ArrayList<EnergyUsageRecord> records;
 
+    // ==================== CONSTANTS ====================
+
+    /**
+     * Malaysia TNB domestic electricity tariff rate in RM per kWh.
+     * Based on the standard tariff for the first 200 kWh block.
+     * This constant is used to calculate estimated electricity costs,
+     * helping users understand the financial impact of their energy usage
+     * in support of SDG 7: Affordable and Clean Energy.
+     */
+    private static final double TARIFF_RATE_RM_PER_KWH = 0.218;
+
     // ==================== CONSTRUCTORS ====================
 
     /**
@@ -210,6 +221,41 @@ public class Household {
     }
 
     /**
+     * Calculates the average energy consumption per appliance in the household.
+     *
+     * Formula: Average Energy = Total Energy / Number of Appliances
+     *
+     * If the household has no appliances, returns 0.0 to avoid division by zero.
+     *
+     * @return the average energy consumption per appliance in kilowatt-hours (kWh)
+     */
+    public double calculateAverageEnergy() {
+        if (appliances.size() == 0) {
+            return 0.0;
+        }
+        return calculateTotalEnergy() / appliances.size();
+    }
+
+    /**
+     * Calculates the estimated electricity cost for the household in Malaysian
+     * Ringgit (RM) based on the total energy consumption and the TNB domestic
+     * tariff rate.
+     *
+     * Formula: Estimated Cost (RM) = Total Energy (kWh) × Tariff Rate (RM/kWh)
+     *
+     * The tariff rate used is RM 0.218 per kWh, which is the standard TNB
+     * domestic tariff for the first 200 kWh consumption block.
+     *
+     * This method supports SDG 7: Affordable and Clean Energy by helping
+     * households understand the financial impact of their energy consumption.
+     *
+     * @return the estimated electricity cost in Malaysian Ringgit (RM)
+     */
+    public double calculateEstimatedCost() {
+        return calculateTotalEnergy() * TARIFF_RATE_RM_PER_KWH;
+    }
+
+    /**
      * Records energy usage for all appliances and generates EnergyUsageRecord objects.
      * Each record captures the appliance and its calculated energy consumption.
      * Clears any previously generated records before creating new ones.
@@ -321,9 +367,19 @@ public class Household {
             report.append(String.format("  Energy Used    : %.4f kWh%n", energy));
         }
 
-        // Summary
+        // Calculate average usage and estimated cost for the summary
+        double averageEnergy = totalEnergy / appliances.size();
+        double estimatedCost = totalEnergy * TARIFF_RATE_RM_PER_KWH;
+
+        // Summary — includes total energy, average usage, and estimated cost
+        // as required by the functional requirements
         report.append("\n================================================\n");
-        report.append(String.format("  TOTAL ENERGY CONSUMPTION : %.4f kWh%n", totalEnergy));
+        report.append("              SUMMARY REPORT\n");
+        report.append("------------------------------------------------\n");
+        report.append(String.format("  Total Energy Used    : %.4f kWh%n", totalEnergy));
+        report.append(String.format("  Average Usage        : %.4f kWh/appliance%n", averageEnergy));
+        report.append(String.format("  Estimated Cost       : RM %.2f%n", estimatedCost));
+        report.append(String.format("  (Tariff: RM %.3f per kWh — TNB Domestic Rate)%n", TARIFF_RATE_RM_PER_KWH));
         report.append("================================================\n");
         report.append("  SDG 7 Reminder: Use LED lights and set your\n");
         report.append("  air conditioner to 24°C or above to save energy!\n");
