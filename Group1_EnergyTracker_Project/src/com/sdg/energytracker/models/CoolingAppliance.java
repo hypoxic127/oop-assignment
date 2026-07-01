@@ -127,7 +127,7 @@ public class CoolingAppliance extends Appliance {
     @Override
     public String toString() {
         return String.format(
-                "CoolingAppliance [Name: %s, Power: %.2f W, Duration: %.2f h, Temp: %d°C, Energy: %.4f kWh]",
+                "CoolingAppliance [Name: %s, Power: %.2f W, Duration: %.2f h, Temp: %d\u00B0C, Energy: %.4f kWh]",
                 getApplianceName(), getPowerRatingInWatts(), getUsageDurationInHours(),
                 temperatureSetting, calculateEnergyConsumption());
     }

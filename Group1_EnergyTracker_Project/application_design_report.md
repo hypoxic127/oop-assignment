@@ -12,11 +12,12 @@ Our project is linked to **United Nations Sustainable Development Goal 7: Afford
 
 ## 1.3 Main Objectives
 
-Our program has three main objectives:
+Our program has four main objectives:
 
 1. **Record and calculate household energy consumption** -- Allow users to add different types of appliances (general, lighting, cooling) and automatically calculate how much energy each one uses in kilowatt-hours (kWh).
 2. **Identify high-energy-consuming appliances** -- Let users set an energy threshold and filter out the appliances that use more than that amount, so they know which ones to target for energy saving.
 3. **Raise energy-saving awareness** -- Show users how switching to LED lights and setting air conditioners to 24 degrees or above can reduce their energy usage, supporting the goals of SDG 7.
+4. **Estimate cost and average usage** -- Calculate the total energy, the average usage per appliance, and the estimated electricity cost in Malaysian Ringgit (RM) using the TNB domestic tariff (RM 0.218 per kWh), so users can see the real financial impact of their consumption.
 
 ---
 
@@ -254,6 +255,7 @@ classDiagram
         -String householdName
         -ArrayList~Appliance~ appliances
         -ArrayList~EnergyUsageRecord~ records
+        -double TARIFF_RATE_RM_PER_KWH$
         +Household()
         +Household(String)
         +addAppliance(Appliance) void
@@ -261,6 +263,8 @@ classDiagram
         +getHighEnergyAppliances(double) ArrayList
         +generateEnergyReport() String
         +generateHighEnergyReport(double) String
+        +calculateAverageEnergy() double
+        +calculateEstimatedCost() double
     }
 
     class EnergyTrackerApp {
@@ -455,7 +459,7 @@ On top of that, we wrapped the entire `main()` method in a `try-catch(Exception)
 
 ---
 
-# 5. Output and Testing (10 marks)
+# 5. Output and Testing (15 marks)
 
 ## 5.1 Testing Strategy and Sample Inputs
 
@@ -465,7 +469,7 @@ We mainly focused on two things:
 - **Valid inputs** -- to make sure the normal features work correctly (adding appliances, calculating energy, etc.).
 - **Invalid inputs** -- to make sure the program does not crash when the user types something wrong (like letters instead of numbers, or negative values).
 
-Here are four of our main test cases:
+Here are five of our main test cases:
 
 | Test ID | Description | Sample Input | Expected Outcome | Pass/Fail |
 |---------|------------|-------------|-----------------|-----------|
@@ -473,8 +477,9 @@ Here are four of our main test cases:
 | TC-02 | Test encapsulation: enter negative power rating | Name: "Broken Item", Power: -50 W | Program shows error: "Power rating cannot be negative" and does not add the appliance. | Pass |
 | TC-03 | Test polymorphism: add an LED light and check energy discount | Name: "Desk Lamp", Power: 60 W, Duration: 5 h, LED: yes | Energy = 0.2400 kWh (base 0.3000 x 0.8 = 20% LED discount applied). | Pass |
 | TC-04 | Test invalid input: type letters instead of a number for menu choice | Input: "abc" when asked for menu choice (1-4) | Program shows "[Invalid] That is not a valid number. Please try again." and asks again. No crash. | Pass |
+| TC-05 | Test summary report: add an LED lamp and an AC, then view the report to check average usage and estimated cost | Desk Lamp (60 W, 5 h, LED) + Living Room AC (1500 W, 10 h, 22°C) | Total = 18.2400 kWh, Average = 9.1200 kWh/appliance, Estimated Cost = RM 3.98 (18.2400 × 0.218). | Pass |
 
-All four test cases passed. We also tested edge cases like entering 0 for power and 0 for duration, which should give 0 kWh -- and it did.
+All five test cases passed. We also tested edge cases like entering 0 for power and 0 for duration, which should give 0 kWh -- and it did.
 
 ---
 
@@ -593,7 +598,12 @@ Since we cannot attach screenshots in this format, we have copied the actual con
   Energy Used    : 18.0000 kWh
 
 ================================================
-  TOTAL ENERGY CONSUMPTION : 18.2400 kWh
+              SUMMARY REPORT
+------------------------------------------------
+  Total Energy Used    : 18.2400 kWh
+  Average Usage        : 9.1200 kWh/appliance
+  Estimated Cost       : RM 3.98
+  (Tariff: RM 0.218 per kWh — TNB Domestic Rate)
 ================================================
   SDG 7 Reminder: Use LED lights and set your
   air conditioner to 24°C or above to save energy!
@@ -728,4 +738,4 @@ Oracle. (2014). *Java Platform, Standard Edition 8 API Specification*. Oracle Co
 
 United Nations. (n.d.). *Goal 7: Ensure access to affordable, reliable, sustainable and modern energy for all*. United Nations Department of Economic and Social Affairs, Sustainable Development. https://sdgs.un.org/goals/goal7
 
-W3Schools. (n.d.). *Java OOP (Object-Oriented Programming)*. W3Schools. https://www.w3schools.com/java/java_oop.asp
+Oracle. (n.d.). *The Java™ tutorials: Object-oriented programming concepts*. Oracle Corporation. https://docs.oracle.com/javase/tutorial/java/concepts/

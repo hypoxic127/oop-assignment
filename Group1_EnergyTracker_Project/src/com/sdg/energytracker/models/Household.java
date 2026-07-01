@@ -5,23 +5,27 @@ import java.util.ArrayList;
 /**
  * Household.java
  * 
- * This class demonstrates the OOP principle of COMPOSITION (HAS-A relationship).
+ * This class demonstrates the OOP principle of COMPOSITION (HAS-A
+ * relationship).
  * A Household HAS-A list of Appliances. Unlike INHERITANCE (IS-A), composition
- * models a "whole-part" relationship: a household is composed of multiple appliances.
+ * models a "whole-part" relationship: a household is composed of multiple
+ * appliances.
  * 
  * By encapsulating the ArrayList<Appliance> inside this class, we achieve:
- *   - ENCAPSULATION: The internal list is private; external code can only interact
- *     with it through well-defined public methods.
- *   - SEPARATION OF CONCERNS: All appliance management and energy calculation
- *     logic is centralised here, keeping the main application class (EnergyTrackerApp)
- *     focused purely on user interaction (Scanner / menu).
- *   - POLYMORPHISM: When iterating through the appliance list to calculate total
- *     energy, the correct overridden calculateEnergyConsumption() method is called
- *     for each appliance based on its actual runtime type (dynamic dispatch).
+ * - ENCAPSULATION: The internal list is private; external code can only
+ * interact
+ * with it through well-defined public methods.
+ * - SEPARATION OF CONCERNS: All appliance management and energy calculation
+ * logic is centralised here, keeping the main application class
+ * (EnergyTrackerApp)
+ * focused purely on user interaction (Scanner / menu).
+ * - POLYMORPHISM: When iterating through the appliance list to calculate total
+ * energy, the correct overridden calculateEnergyConsumption() method is called
+ * for each appliance based on its actual runtime type (dynamic dispatch).
  * 
  * This design follows the Single Responsibility Principle (SRP):
- *   - Household is responsible for appliance management and energy calculations.
- *   - EnergyTrackerApp is responsible for user interface and input/output.
+ * - Household is responsible for appliance management and energy calculations.
+ * - EnergyTrackerApp is responsible for user interface and input/output.
  * 
  * Related to SDG 7: Affordable and Clean Energy — this class helps track
  * and analyse household energy consumption patterns.
@@ -169,9 +173,10 @@ public class Household {
      * When we call calculateEnergyConsumption() on each reference, the JVM
      * determines the ACTUAL type of the object at runtime and calls the
      * correct overridden version:
-     *   - If the object is a LightAppliance  → LightAppliance's version (LED discount)
-     *   - If the object is a CoolingAppliance → CoolingAppliance's version (temp penalty)
-     *   - If the object is a plain Appliance  → the base version
+     * - If the object is a LightAppliance → LightAppliance's version (LED discount)
+     * - If the object is a CoolingAppliance → CoolingAppliance's version (temp
+     * penalty)
+     * - If the object is a plain Appliance → the base version
      * 
      * This is DYNAMIC METHOD DISPATCH — the method that gets executed is
      * decided at runtime, not at compile time.
@@ -185,18 +190,20 @@ public class Household {
         // *** DYNAMIC POLYMORPHISM (Runtime Polymorphism) - CORE DEMONSTRATION ***
         // =====================================================================
         // Step 1 (UPCASTING): The ArrayList is declared as ArrayList<Appliance>,
-        //         so every element is accessed through a SUPERCLASS reference.
-        //         The actual objects stored could be Appliance, LightAppliance,
-        //         or CoolingAppliance — all stored via upcasting.
+        // so every element is accessed through a SUPERCLASS reference.
+        // The actual objects stored could be Appliance, LightAppliance,
+        // or CoolingAppliance — all stored via upcasting.
         //
         // Step 2 (DYNAMIC DISPATCH): When we call calculateEnergyConsumption()
-        //         on the superclass reference 'currentAppliance', the JVM does
-        //         NOT simply call Appliance's version. Instead, at RUNTIME, it
-        //         checks the ACTUAL TYPE of the object and dispatches to the
-        //         correct overridden method:
-        //           - Appliance object        → Appliance.calculateEnergyConsumption()
-        //           - LightAppliance object    → LightAppliance.calculateEnergyConsumption() (LED discount)
-        //           - CoolingAppliance object  → CoolingAppliance.calculateEnergyConsumption() (temp penalty)
+        // on the superclass reference 'currentAppliance', the JVM does
+        // NOT simply call Appliance's version. Instead, at RUNTIME, it
+        // checks the ACTUAL TYPE of the object and dispatches to the
+        // correct overridden method:
+        // - Appliance object → Appliance.calculateEnergyConsumption()
+        // - LightAppliance object → LightAppliance.calculateEnergyConsumption() (LED
+        // discount)
+        // - CoolingAppliance object → CoolingAppliance.calculateEnergyConsumption()
+        // (temp penalty)
         //
         // This is the essence of RUNTIME POLYMORPHISM: same method call,
         // different behaviour depending on the actual object type.
@@ -204,11 +211,13 @@ public class Household {
         for (int i = 0; i < appliances.size(); i++) {
 
             // UPCASTING: 'currentAppliance' is the superclass reference (Appliance),
-            // but the actual object could be any subclass (LightAppliance, CoolingAppliance).
+            // but the actual object could be any subclass (LightAppliance,
+            // CoolingAppliance).
             // This is equivalent to: Appliance currentAppliance = new LightAppliance(...);
             Appliance currentAppliance = appliances.get(i);
 
-            // DYNAMIC DISPATCH (Runtime Method Resolution): The JVM resolves which version of
+            // DYNAMIC DISPATCH (Runtime Method Resolution): The JVM resolves which version
+            // of
             // calculateEnergyConsumption() to call based on the ACTUAL runtime
             // type of 'currentAppliance', NOT the declared type (Appliance).
             // This decision happens at RUNTIME, not at compile time.
@@ -256,7 +265,8 @@ public class Household {
     }
 
     /**
-     * Records energy usage for all appliances and generates EnergyUsageRecord objects.
+     * Records energy usage for all appliances and generates EnergyUsageRecord
+     * objects.
      * Each record captures the appliance and its calculated energy consumption.
      * Clears any previously generated records before creating new ones.
      */
@@ -324,7 +334,8 @@ public class Household {
             return report.toString();
         }
 
-        // ==================== DYNAMIC POLYMORPHISM (Runtime Polymorphism) IN ACTION ====================
+        // ==================== DYNAMIC POLYMORPHISM (Runtime Polymorphism) IN ACTION
+        // ====================
         double totalEnergy = 0.0;
 
         for (int i = 0; i < appliances.size(); i++) {
@@ -334,7 +345,8 @@ public class Household {
             // LightAppliance or CoolingAppliance (subclass objects).
             Appliance currentAppliance = appliances.get(i);
 
-            // DYNAMIC DISPATCH (Runtime Method Resolution): Calling calculateEnergyConsumption()
+            // DYNAMIC DISPATCH (Runtime Method Resolution): Calling
+            // calculateEnergyConsumption()
             // on the superclass reference. The JVM determines which overridden
             // version to execute based on the ACTUAL runtime type of the object.
             double energy = currentAppliance.calculateEnergyConsumption();
@@ -356,7 +368,7 @@ public class Household {
             } else if (currentAppliance instanceof CoolingAppliance) {
                 CoolingAppliance cooling = (CoolingAppliance) currentAppliance;
                 report.append(String.format("  Type           : Cooling Appliance%n"));
-                report.append(String.format("  Temperature    : %d °C%s%n",
+                report.append(String.format("  Temperature    : %d \u00B0C%s%n",
                         cooling.getTemperatureSetting(),
                         cooling.getTemperatureSetting() < 24 ? " (20% energy penalty applied)" : ""));
             } else {
@@ -379,10 +391,10 @@ public class Household {
         report.append(String.format("  Total Energy Used    : %.4f kWh%n", totalEnergy));
         report.append(String.format("  Average Usage        : %.4f kWh/appliance%n", averageEnergy));
         report.append(String.format("  Estimated Cost       : RM %.2f%n", estimatedCost));
-        report.append(String.format("  (Tariff: RM %.3f per kWh — TNB Domestic Rate)%n", TARIFF_RATE_RM_PER_KWH));
+        report.append(String.format("  (Tariff: RM %.3f per kWh \u2014 TNB Domestic Rate)%n", TARIFF_RATE_RM_PER_KWH));
         report.append("================================================\n");
         report.append("  SDG 7 Reminder: Use LED lights and set your\n");
-        report.append("  air conditioner to 24°C or above to save energy!\n");
+        report.append("  air conditioner to 24\u00B0C or above to save energy!\n");
         report.append("================================================\n");
 
         return report.toString();
@@ -406,7 +418,7 @@ public class Household {
             report.append(String.format("  Found %d appliance(s) exceeding the threshold:%n", highEnergyList.size()));
             for (int i = 0; i < highEnergyList.size(); i++) {
                 Appliance appliance = highEnergyList.get(i);
-                report.append(String.format("  %d. %s — %.4f kWh%n",
+                report.append(String.format("  %d. %s \u2014 %.4f kWh%n",
                         (i + 1), appliance.getApplianceName(), appliance.calculateEnergyConsumption()));
             }
             report.append("  Consider replacing these with energy-efficient alternatives!\n");

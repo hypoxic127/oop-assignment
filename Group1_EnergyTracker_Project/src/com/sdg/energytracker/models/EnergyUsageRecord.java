@@ -204,7 +204,7 @@ public class EnergyUsageRecord {
                         light.getIsLED() ? "LED - Energy Efficient" : "Non-LED"));
             } else if (appliance instanceof CoolingAppliance) {
                 CoolingAppliance cooling = (CoolingAppliance) appliance;
-                report.append(String.format("Type            : Cooling (Set to %d°C)%n",
+                report.append(String.format("Type            : Cooling (Set to %d\u00B0C)%n",
                         cooling.getTemperatureSetting()));
             }
         } else {
@@ -213,7 +213,7 @@ public class EnergyUsageRecord {
 
         report.append("----------------------------------------\n");
         report.append("SDG 7 Tip: Save energy by using LED\n");
-        report.append("lights and setting AC to 24°C or above!\n");
+        report.append("lights and setting AC to 24\u00B0C or above!\n");
         report.append("========================================\n");
 
         return report.toString();
