@@ -23,6 +23,11 @@ format:
     number-sections: true
     colorlinks: true
     highlight-style: github
+    include-in-header: 
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+        \DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines,commandchars=\\\{\}}
     geometry:
       - top=25mm
       - left=25mm
@@ -107,6 +112,8 @@ What makes our setter methods different from basic ones is that we added **data 
 | `CoolingAppliance` | `setTemperatureSetting(int)` | Only allows temperatures between 16 and 30 degrees Celsius. |
 | `Household` | `setHouseholdName(String)` | Makes sure the household name is not `null` or empty. |
 | `EnergyUsageRecord` | `setEnergyConsumedInKWh(double)` | Makes sure energy values are not negative. |
+
+: Setter Methods {tbl-colwidths="[20, 30, 50]"}
 
 One thing our group decided early on is that the **constructors should call these setter methods** instead of assigning values directly. For example, in our `Appliance.java`:
 
@@ -258,6 +265,8 @@ We did it this way because we wanted each class to have only one job. This is th
 | `service/ReportService` | Formats the calculation results into human-readable text reports. |
 | `utilities/InputReader` | Robust, validated console input (never crashes on bad input). |
 | `utilities/ConsoleUI` | Banners, menu, separators – consistent console output. |
+
+: Layered Architecture {tbl-colwidths="[25, 75]"}
 
 So no class ever does two kinds of work: the entity classes never calculate totals, the services never read user input, and the controller never contains business formulas. Besides making the code cleaner, this also made teamwork much easier – each of the five group members owns a complete, clearly separated part of the system (see `TEAM_CONTRIBUTIONS.md`).
 
@@ -629,7 +638,9 @@ Each member designed and executed the test cases for the classes they implemente
 | TC-07 | Test high-energy filter: threshold below one appliance’s usage | Threshold: 5 kWh (with Desk Lamp 0.24 kWh + Living Room AC 18.0 kWh added) | Report lists exactly 1 appliance: “Living Room AC — 18.0000 kWh”. | MOHAMMAD SHAHNAWAZ | Pass |
 | TC-08 | Test controller guard: view report before adding any appliance | Choose option 2 with an empty household | Program shows “[INFO] No appliances added yet. Please add appliances first (Option 1).” and returns to the menu. | Su Tingwei | Pass |
 | TC-09 | Test calculation edge case: zero power and zero duration | Name: “Standby Device”, Power: 0 W, Duration: 0 h | Appliance is accepted (0 is valid) and Energy = 0.0000 kWh – no division or formula error. | WEN SIHAO | Pass |
-| TC-10 | Test high-energy filter: threshold above every appliance’s usage | Threshold: 50 kWh (same two appliances) | Report shows “No appliances exceed the energy threshold. Great job!” | MOHAMMAD SHAHNAWAZ | Pass |
+| TC-10 | Test high-energy filter: threshold above every appliance’s usage |
+
+: Test Cases {tbl-colwidths="[8, 25, 20, 25, 12, 10]"} Threshold: 50 kWh (same two appliances) | Report shows “No appliances exceed the energy threshold. Great job!” | MOHAMMAD SHAHNAWAZ | Pass |
 
 All ten test cases passed.
 
