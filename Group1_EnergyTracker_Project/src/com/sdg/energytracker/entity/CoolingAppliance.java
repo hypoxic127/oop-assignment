@@ -1,21 +1,21 @@
-package com.sdg.energytracker.models;
+package com.sdg.energytracker.entity;
 
 /**
  * CoolingAppliance.java
- * 
+ *
  * This class demonstrates INHERITANCE by extending the Appliance superclass.
  * It inherits all attributes and methods from Appliance, and adds a new
  * attribute 'temperatureSetting' specific to cooling appliances.
- * 
+ *
  * It also demonstrates POLYMORPHISM by overriding the calculateEnergyConsumption()
  * method. When the temperature is set below 24°C, the appliance works harder
- * and consumes 20% more energy — reflecting real-world air conditioning behaviour.
- * 
+ * and consumes 20% more energy - reflecting real-world air conditioning behaviour.
+ *
  * This supports SDG 7 by encouraging users to set higher temperature thresholds
  * to reduce unnecessary energy consumption from cooling systems.
- * 
- * @author Group Work
- * @version 1.0
+ *
+ * @author Group 1 - ABDULLAH AHONAF FAHOMID ZIM (0390367)
+ * @version 2.0
  */
 public class CoolingAppliance extends Appliance {
     // 'extends Appliance' establishes an IS-A relationship (INHERITANCE).
@@ -41,7 +41,7 @@ public class CoolingAppliance extends Appliance {
      * temperature of 24°C (the energy-efficient threshold).
      */
     public CoolingAppliance() {
-        super(); // Calls Appliance() default constructor — INHERITANCE in action
+        super(); // Calls Appliance() default constructor - INHERITANCE in action
         this.temperatureSetting = EFFICIENT_TEMP_THRESHOLD;
     }
 
@@ -74,7 +74,7 @@ public class CoolingAppliance extends Appliance {
 
     /**
      * Sets the temperature setting of the cooling appliance.
-     * Validates that the temperature is within a reasonable range (16–30°C).
+     * Validates that the temperature is within a reasonable range (16-30°C).
      *
      * @param temperatureSetting the temperature to set in degrees Celsius
      * @throws IllegalArgumentException if the temperature is outside the valid range
@@ -93,11 +93,11 @@ public class CoolingAppliance extends Appliance {
     /**
      * Overrides the parent class method to provide specialised energy calculation
      * for cooling appliances. This is an example of POLYMORPHISM.
-     * 
+     *
      * If the temperature setting is below 24°C, the cooling appliance must work
      * harder to maintain a lower temperature, resulting in a 20% increase in
      * energy consumption (multiplied by 1.2).
-     * 
+     *
      * The @Override annotation is a compile-time check to ensure this method
      * properly overrides the parent's calculateEnergyConsumption().
      *

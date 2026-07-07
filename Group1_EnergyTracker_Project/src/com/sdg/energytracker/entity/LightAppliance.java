@@ -1,22 +1,22 @@
-package com.sdg.energytracker.models;
+package com.sdg.energytracker.entity;
 
 /**
  * LightAppliance.java
- * 
+ *
  * This class demonstrates INHERITANCE by extending the Appliance superclass.
  * It inherits all attributes and methods from Appliance, and adds a new
  * attribute 'isLED' specific to lighting appliances.
- * 
+ *
  * It also demonstrates POLYMORPHISM by overriding the calculateEnergyConsumption()
  * method. When the same method is called on a LightAppliance object (even through
- * an Appliance reference), the overridden version executes — this is runtime
+ * an Appliance reference), the overridden version executes - this is runtime
  * polymorphism (dynamic method dispatch).
- * 
+ *
  * LED lights consume approximately 80% of the energy compared to traditional
  * lights, supporting SDG 7 by promoting energy-efficient lighting solutions.
- * 
- * @author Group Work
- * @version 1.0
+ *
+ * @author Group 1 - ABDULLAH AHONAF FAHOMID ZIM (0390367)
+ * @version 2.0
  */
 public class LightAppliance extends Appliance {
     // 'extends Appliance' is the keyword for INHERITANCE.
@@ -83,10 +83,10 @@ public class LightAppliance extends Appliance {
     /**
      * Overrides the parent class method to provide specialised energy calculation
      * for lighting appliances. This is an example of POLYMORPHISM.
-     * 
+     *
      * If the light is LED, energy consumption is reduced by 20% (multiplied by 0.8),
      * simulating the real-world energy savings of LED technology.
-     * 
+     *
      * The @Override annotation ensures the compiler checks that this method
      * correctly overrides a method in the superclass.
      *
@@ -99,7 +99,7 @@ public class LightAppliance extends Appliance {
         double baseEnergy = super.calculateEnergyConsumption();
 
         if (isLED) {
-            // LED lights are more efficient — apply a 20% energy saving (multiply by 0.8)
+            // LED lights are more efficient - apply a 20% energy saving (multiply by 0.8)
             return baseEnergy * 0.8;
         } else {
             // Non-LED lights use the standard energy consumption

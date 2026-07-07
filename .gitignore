@@ -1,0 +1,28 @@
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# IDE files
+.vscode/
+.project
+.classpath
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build output
+out/
+build/
+target/
+bin/
+
+# Agent config (not part of project)
+.agents/
+rules.md
+.gitignore

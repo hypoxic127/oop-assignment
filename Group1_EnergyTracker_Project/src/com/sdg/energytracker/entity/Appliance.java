@@ -1,22 +1,22 @@
-package com.sdg.energytracker.models;
+package com.sdg.energytracker.entity;
 
 /**
  * Appliance.java
- * 
+ *
  * This is the parent (superclass) for all household appliances.
  * It demonstrates the OOP principle of ENCAPSULATION by:
  *   - Declaring all instance variables as 'private' to hide internal state.
  *   - Providing public getter and setter methods with DATA VALIDATION
  *     to control how external code accesses and modifies the data.
- * 
+ *
  * It also serves as the base class for INHERITANCE, allowing subclasses
  * (LightAppliance, CoolingAppliance) to reuse and extend its functionality.
- * 
- * Related to SDG 7: Affordable and Clean Energy — tracking energy consumption
+ *
+ * Related to SDG 7: Affordable and Clean Energy - tracking energy consumption
  * helps households understand and reduce their energy usage.
- * 
- * @author Group Work
- * @version 1.0
+ *
+ * @author Group 1 - WEN SIHAO (0379856)
+ * @version 2.0
  */
 public class Appliance {
 
@@ -138,9 +138,9 @@ public class Appliance {
 
     /**
      * Calculates the energy consumption of the appliance.
-     * 
+     *
      * Formula: Energy (kWh) = Power (W) * Duration (h) / 1000
-     * 
+     *
      * This method is designed to be OVERRIDDEN by subclasses (POLYMORPHISM).
      * Subclasses like LightAppliance and CoolingAppliance provide their own
      * specialised calculation logic while keeping the same method signature.
